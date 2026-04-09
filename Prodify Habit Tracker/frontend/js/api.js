@@ -9,7 +9,7 @@
         (Defined here once so tasks.js and habits.js don't repeat them)
    ============================================================ */
 
-const API_BASE = "http://127.0.0.1:5000"; // Flask backend runs on port 5000
+const API_BASE = ""; // Flask backend runs on port 5000
 
 /**
  * Makes an HTTP request to the Flask backend.
