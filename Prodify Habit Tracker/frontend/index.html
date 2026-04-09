@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prodify — Organize Tasks. Build Habits. Stay Productive.</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- ══════════════════════════════════════
+       NAVBAR
+  ══════════════════════════════════════ -->
+    <nav class="navbar-landing">
+      <div class="container navbar-inner">
+        <a href="index.html" class="nav-logo">
+          <div class="logo-mark">⚡</div>
+          <span>Prodify</span>
+        </a>
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#about">About</a>
+        </div>
+        <div class="nav-actions">
+          <div class="theme-toggle" title="Toggle theme">
+            <span class="theme-icon-sun" style="display: none">☀️</span>
+          </div>
+          <a href="pages/login.html" class="btn btn-ghost btn-sm">Login</a>
+          <a href="pages/register.html" class="btn btn-primary btn-sm"
+            >Get Started</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="container">
+        <div class="hero-inner">
+          <!-- Headline -->
+          <div class="hero-content">
+            <div class="hero-eyebrow">
+              <span class="dot"></span>
+              Your productiviy tracking space
+            </div>
+            <h1 class="hero-title">
+              Organize Tasks.<br />
+              Build <span class="teal">Habits</span>.<br />
+              Stay <span class="accent">Productive</span>.
+            </h1>
+            <p class="hero-subtitle">
+              Prodify helps you manage daily tasks and track habits through a
+              simple, clean productivity dashboard — built for focus, not
+              complexity.
+            </p>
+            <div class="hero-cta">
+              <a href="pages/register.html" class="btn btn-primary btn-lg"
+                >Get Started — It's Free</a
+              >
+              <a href="pages/login.html" class="btn btn-outline btn-lg"
+                >Login to Account</a
+              >
+            </div>
+          </div>
+
+          <!-- Floating Preview Cards -->
+          <div class="hero-cards">
+            <!-- Task Preview -->
+            <div class="float-card">
+              <div class="fc-head">
+                <div class="fc-icon fc-icon-blue">📝</div>
+                <div class="fc-label">Today's Tasks</div>
+              </div>
+              <div class="task-mini">
+                <div class="t-dot done"></div>
+                <div class="t-text strike">Morning workout</div>
+                <span class="badge badge-completed" style="font-size: 11px"
+                  >Done</span
+                >
+              </div>
+              <div class="task-mini">
+                <div class="t-dot prog"></div>
+                <div class="t-text">Study Flask backend</div>
+                <span class="badge badge-blue" style="font-size: 11px"
+                  >Active</span
+                >
+              </div>
+              <div class="task-mini">
+                <div class="t-dot pend"></div>
+                <div class="t-text">Read 20 pages</div>
+                <span class="badge badge-pending" style="font-size: 11px"
+                  >Pending</span
+                >
+              </div>
+            </div>
+
+            <!-- Habit Preview -->
+            <div class="float-card">
+              <div class="fc-head">
+                <div class="fc-icon fc-icon-teal">🌱</div>
+                <div class="fc-label">Daily Habits</div>
+              </div>
+              <div class="habit-mini">
+                <div class="hm-left"><span>🧘</span> Meditation</div>
+                <div class="hm-check done">✓</div>
+              </div>
+              <div class="habit-mini">
+                <div class="hm-left"><span>💧</span> Drink Water</div>
+                <div class="hm-check done">✓</div>
+              </div>
+              <div class="habit-mini">
+                <div class="hm-left"><span>📚</span> Reading</div>
+                <div class="hm-check open"></div>
+              </div>
+            </div>
+
+            <!-- Progress Preview -->
+            <div class="float-card">
+              <div class="fc-head">
+                <div class="fc-icon fc-icon-green">📊</div>
+                <div class="fc-label">Productivity</div>
+              </div>
+              <div class="pr-wrap">
+                <div class="pr-ring">
+                  <svg width="66" height="66" viewBox="0 0 66 66">
+                    <circle class="track" cx="33" cy="33" r="27" />
+                    <circle
+                      class="fill"
+                      cx="33"
+                      cy="33"
+                      r="27"
+                      stroke-dashoffset="56"
+                    />
+                  </svg>
+                  <div class="pr-inner">75%</div>
+                </div>
+                <div class="pr-stats">
+                  <div class="pr-row">
+                    <span>Total Tasks</span><span class="pr-val">12</span>
+                  </div>
+                  <div class="pr-row">
+                    <span>Completed</span><span class="pr-val">9</span>
+                  </div>
+                  <div class="pr-row">
+                    <span>Habits Today</span><span class="pr-val">2/3</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       FEATURES
+  ══════════════════════════════════════ -->
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow">✦ Features</div>
+          <h2 class="section-title">Everything you need to stay on track</h2>
+          <p class="section-sub">
+            Simple, focused tools designed around how productive people actually
+            work.
+          </p>
+        </div>
+
+        <div class="bento-grid">
+          <!-- Task Management -->
+          <div class="bento-card card-accent">
+            <div class="bento-icon bento-icon-white">✅</div>
+            <div class="bento-card-title">Task Management</div>
+            <div class="bento-card-desc">
+              Create, track, and complete your tasks with ease. See pending and
+              completed tasks at a glance — no clutter, just clarity.
+            </div>
+          </div>
+
+          <!-- Habit Tracking -->
+          <div class="bento-card">
+            <div class="bento-icon bento-icon-teal">🌿</div>
+            <div class="bento-card-title">Habit Tracking</div>
+            <div class="bento-card-desc">
+              Build powerful daily habits. Mark each habit as done once per day
+              and watch your consistency grow over time.
+            </div>
+          </div>
+
+          <!-- Dashboard -->
+          <div class="bento-card">
+            <div class="bento-icon bento-icon-green">📊</div>
+            <div class="bento-card-title">Productivity Dashboard</div>
+            <div class="bento-card-desc">
+              Get a bird's-eye view of your productivity. See task stats and
+              habit completions in one clean, bento-style dashboard.
+            </div>
+          </div>
+
+          <!-- Simple Progress Tracking  -->
+       <div class="bento-card">
+  <div class="bento-icon bento-icon-green">📈</div>
+  <div class="bento-card-title">Simple Progress Tracking</div>
+  <div class="bento-card-desc">
+    Monitor your daily task and habit completion in a clean and easy-to-understand way.
+  </div>
+</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       ABOUT
+  ══════════════════════════════════════ -->
+    <section class="about-section" id="about">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow">✦ About</div>
+          <h2 class="section-title">About Prodify</h2>
+          <p class="section-sub">
+          The application is built using a vibe coding approach, keeping the design clean,
+  minimal, and user-friendly while maintaining practical functionality.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <!-- Project Description -->
+          <div class="about-card">
+            <div class="about-card-head">
+              <div
+                class="about-card-icon"
+                style="background: var(--accent-soft)"
+              >
+                💡
+              </div>
+              <div class="about-card-title">Project Description</div>
+            </div>
+            <p>
+              Prodify is a productivity web application designed to help users
+              manage tasks and track daily habits. It features a clean dashboard
+              that gives users a complete overview of their productivity at a
+              glance.
+            </p>
+            <ul style="margin-top: 12px">
+              <li>Create and manage personal tasks</li>
+              <li>Build daily habits with one-completion-per-day logic</li>
+              <li>View productivity stats on the dashboard</li>
+              <li>Secure login with session-based authentication</li>
+            </ul>
+          </div>
+
+          <!-- Tech Stack -->
+          <div class="about-card">
+            <div class="about-card-head">
+              <div class="about-card-icon" style="background: var(--teal-soft)">
+                ⚙️
+              </div>
+              <div class="about-card-title">Technology Stack</div>
+            </div>
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                margin-top: 4px;
+              "
+            >
+              <div>
+                <div
+                  style="
+                    font-size: 12px;
+                    font-weight: 700;
+                    color: var(--text-muted);
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                    margin-bottom: 6px;
+                    font-family: var(--font-display);
+                  "
+                >
+                  Frontend
+                </div>
+                <div class="tech-pills">
+                  <span class="tech-pill">HTML5</span>
+                  <span class="tech-pill">CSS3</span>
+                  <span class="tech-pill">Vanilla JS</span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="
+                    font-size: 12px;
+                    font-weight: 700;
+                    color: var(--text-muted);
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                    margin-bottom: 6px;
+                    font-family: var(--font-display);
+                  "
+                >
+                  Backend
+                </div>
+                <div class="tech-pills">
+                  <span class="tech-pill">Python</span>
+                  <span class="tech-pill">Flask</span>
+                  <span class="tech-pill">mysql-connector</span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="
+                    font-size: 12px;
+                    font-weight: 700;
+                    color: var(--text-muted);
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                    margin-bottom: 6px;
+                    font-family: var(--font-display);
+                  "
+                >
+                  Database & Auth
+                </div>
+                <div class="tech-pills">
+                  <span class="tech-pill">MySQL</span>
+                  <span class="tech-pill">XAMPP</span>
+                  <span class="tech-pill">Flask Sessions</span>
+                  <span class="tech-pill">Werkzeug</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Academic Info -->
+          <div class="about-card">
+            <div class="about-card-head">
+              <div
+                class="about-card-icon"
+                style="background: var(--success-soft)"
+              >
+                🎓
+              </div>
+              <div class="about-card-title">Academic Information</div>
+            </div>
+            <div class="acad-rows">
+              <div class="acad-row">
+                <strong>Project Title</strong>
+                Prodify — Productivity Web Application
+              </div>
+              <div class="acad-row">
+                <strong>Student Name</strong>
+                Manmath Bharde
+              <div class="acad-row">
+                <strong>College</strong>
+                MDA Institute of Polytechnic , Kolpa
+              </div>
+              <div class="acad-row">
+                <strong>Course</strong>
+                Diploma in Computer Engineering
+              </div>
+              <div class="acad-row">
+                <strong>Academic Year</strong>
+                2025 – 2026
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div class="footer-logo">
+          <span>⚡</span>
+          Prodify
+        </div>
+        <div class="footer-copy">
+          Built as a Final Year Diploma Project — 2025–26
+        </div>
+        <div style="display: flex; gap: 12px">
+          <a
+            href="pages/login.html"
+            style="font-size: 13px; color: var(--text-secondary)"
+            >Login</a
+          >
+          <a
+            href="pages/register.html"
+            style="font-size: 13px; color: var(--accent); font-weight: 600"
+            >Register</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <!-- Toast container -->
+    <div class="toast-container"></div>
+
+    <script src="js/theme.js"></script>
+  </body>
+</html>

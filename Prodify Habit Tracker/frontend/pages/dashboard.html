@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard — Prodify</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <div class="app-wrapper">
+      <!-- ══════════════════════════════════════
+       SIDEBAR
+  ══════════════════════════════════════ -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo-wrap">
+          <div class="sidebar-logo">
+            <div class="logo-mark">⚡</div>
+            Prodify
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <div class="sidebar-section-label">Menu</div>
+          <a href="dashboard.html" class="sidebar-link active">
+            <span class="s-icon">🏠</span> Dashboard
+          </a>
+          <a href="tasks.html" class="sidebar-link">
+            <span class="s-icon">✅</span> Tasks
+          </a>
+          <a href="habits.html" class="sidebar-link">
+            <span class="s-icon">🌿</span> Habits
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="sidebar-theme-row">
+            <span class="sidebar-theme-label">
+              <span class="theme-icon-sun">☀️</span> Theme
+            </span>
+            <div class="theme-toggle" title="Toggle theme"></div>
+          </div>
+          <div class="sidebar-divider"></div>
+          <a href="#" class="sidebar-link" id="logout-btn">
+            <span class="s-icon">🚪</span> Logout
+          </a>
+        </div>
+      </aside>
+
+      <!-- ══════════════════════════════════════
+       MAIN CONTENT
+  ══════════════════════════════════════ -->
+      <main class="app-main">
+        <!-- Top bar -->
+        <div class="app-topbar">
+          <div class="topbar-left">
+            <span class="topbar-greeting">Good day 👋</span>
+            <span class="topbar-title" id="welcome-name">Dashboard</span>
+          </div>
+          <div class="topbar-right">
+            <div class="theme-toggle" title="Toggle theme"></div>
+            <div class="topbar-avatar" id="user-avatar" title="Profile">U</div>
+          </div>
+        </div>
+
+        <!-- Page body -->
+        <div class="page-body">
+          <div class="page-header">
+            <h1>Productivity Overview</h1>
+            <p>Here's a summary of your tasks and habits for today.</p>
+          </div>
+
+          <!-- Stats grid — values are filled in by dashboard.js -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon" style="background: var(--accent-soft)">
+                📋
+              </div>
+              <div class="stat-label">Total Tasks</div>
+              <div class="stat-value" id="stat-total-tasks">—</div>
+              <div class="stat-hint">All time</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon" style="background: var(--success-soft)">
+                ✅
+              </div>
+              <div class="stat-label">Completed</div>
+              <div class="stat-value" id="stat-completed-tasks">—</div>
+              <div class="stat-hint">Tasks done</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon" style="background: var(--warning-soft)">
+                ⏳
+              </div>
+              <div class="stat-label">Pending</div>
+              <div class="stat-value" id="stat-pending-tasks">—</div>
+              <div class="stat-hint">Tasks remaining</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon" style="background: var(--teal-soft)">
+                🌿
+              </div>
+              <div class="stat-label">Total Habits</div>
+              <div class="stat-value" id="stat-total-habits">—</div>
+              <div class="stat-hint">Habits tracked</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon" style="background: var(--success-soft)">
+                🏆
+              </div>
+              <div class="stat-label">Habits Today</div>
+              <div class="stat-value" id="stat-habits-today">—</div>
+              <div class="stat-hint">Completed today</div>
+            </div>
+          </div>
+
+          <!-- Two-panel layout -->
+          <div class="panels-grid">
+            <!-- Latest tasks preview -->
+            <div class="panel">
+              <div class="panel-header">
+                <span class="panel-title">📝 Latest Tasks</span>
+                <a href="tasks.html" class="btn btn-ghost btn-sm">View All →</a>
+              </div>
+              <div class="panel-body" id="latest-tasks">
+                <div class="panel-empty">
+                  <div class="panel-empty-icon">📝</div>
+                  <p>Loading tasks…</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Habits overview preview -->
+            <div class="panel">
+              <div class="panel-header">
+                <span class="panel-title">🌿 Habits Overview</span>
+                <a href="habits.html" class="btn btn-ghost btn-sm"
+                  >View All →</a
+                >
+              </div>
+              <div class="panel-body" id="habits-overview">
+                <div class="panel-empty">
+                  <div class="panel-empty-icon">🌱</div>
+                  <p>Loading habits…</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page-body -->
+      </main>
+    </div>
+    <!-- /app-wrapper -->
+
+    <div class="toast-container"></div>
+
+    <script src="../js/theme.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/dashboard.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const storedName = localStorage.getItem("prodify-username");
+
+        if (storedName) {
+          const firstName = storedName.trim().split(" ")[0];
+
+          document.getElementById("welcome-name").textContent =
+            `Welcome, ${firstName}`;
+          document.getElementById("user-avatar").textContent = firstName
+            .charAt(0)
+            .toUpperCase();
+        }
+
+        // Logout button
+        document
+          .getElementById("logout-btn")
+          .addEventListener("click", async (e) => {
+            e.preventDefault();
+            await authLogout();
+            localStorage.removeItem("prodify-username");
+            window.location.href = "../index.html";
+          });
+      });
+    </script>
+  </body>
+</html>

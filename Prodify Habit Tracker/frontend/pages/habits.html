@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Habits — Prodify</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<div class="app-wrapper">
+
+  <!-- ══════════════════════════════════════
+       SIDEBAR
+  ══════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo-wrap">
+      <div class="sidebar-logo">
+        <div class="logo-mark">⚡</div>
+        Prodify
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Menu</div>
+      <a href="dashboard.html" class="sidebar-link">
+        <span class="s-icon">🏠</span> Dashboard
+      </a>
+      <a href="tasks.html" class="sidebar-link">
+        <span class="s-icon">✅</span> Tasks
+      </a>
+      <a href="habits.html" class="sidebar-link active">
+        <span class="s-icon">🌿</span> Habits
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-theme-row">
+        <span class="sidebar-theme-label">
+          <span class="theme-icon-sun">☀️</span> Theme
+        </span>
+        <div class="theme-toggle" title="Toggle theme"></div>
+      </div>
+      <div class="sidebar-divider"></div>
+      <a href="#" class="sidebar-link" id="logout-btn">
+        <span class="s-icon">🚪</span> Logout
+      </a>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════════════
+       MAIN
+  ══════════════════════════════════════ -->
+  <main class="app-main">
+
+    <!-- Top Bar -->
+    <div class="app-topbar">
+      <div class="topbar-left">
+        <span class="topbar-greeting">Build</span>
+        <span class="topbar-title">Daily Habits</span>
+      </div>
+      <div class="topbar-right">
+        <div class="theme-toggle" title="Toggle theme"></div>
+        <div class="topbar-avatar" id="user-avatar" title="Profile">U</div>
+      </div>
+    </div>
+
+    <!-- Page Body -->
+    <div class="page-body">
+
+      <div class="page-header">
+        <h1>Habit Tracker</h1>
+        <p>Track daily habits. One completion allowed per habit per day.</p>
+      </div>
+
+      <!-- Info Banner -->
+      <div class="alert alert-info" style="margin-bottom:20px">
+        <span>💡</span>
+        <span>Each habit can only be marked complete <strong>once per day</strong>. Come back tomorrow to mark it again!</span>
+      </div>
+
+      <!-- Add Habit Form -->
+      <div class="form-panel">
+        <div class="form-panel-header">
+          <span class="form-panel-title">➕ Add New Habit</span>
+        </div>
+        <div class="form-panel-body">
+          <form id="habit-form" novalidate>
+            <div class="form-group" style="max-width:480px">
+              <label class="form-label" for="habit-name">Habit Name <span style="color:var(--danger)">*</span></label>
+              <input
+                class="form-input"
+                type="text"
+                id="habit-name"
+                placeholder="e.g. Drink 8 glasses of water"
+                required
+                maxlength="200"
+              />
+            </div>
+            <div class="form-actions">
+              <button type="reset" class="btn btn-ghost btn-sm">Clear</button>
+              <button type="submit" class="btn btn-primary">+ Add Habit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Habits Header -->
+      <div style="margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+        <h2 style="font-size:16px;font-weight:600;font-family:var(--font-display)">My Habits</h2>
+        <span class="badge badge-teal" id="today-date"></span>
+      </div>
+
+      <!-- Loading -->
+      <div id="habits-loading" style="text-align:center;padding:48px;color:var(--text-muted)">
+        <div style="font-size:36px;margin-bottom:10px">⏳</div>
+        <p>Loading your habits…</p>
+      </div>
+
+      <!-- Habit List -->
+      <div class="habit-list hidden" id="habit-list"></div>
+
+    </div><!-- /page-body -->
+  </main>
+
+</div><!-- /app-wrapper -->
+
+<div class="toast-container"></div>
+
+<script src="../js/theme.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/habits.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Set avatar
+    const storedName = localStorage.getItem('prodify-username');
+    if (storedName) {
+      document.getElementById('user-avatar').textContent = storedName[0].toUpperCase();
+    }
+
+    // Today's date badge
+    const dateEl = document.getElementById('today-date');
+    if (dateEl) {
+      dateEl.textContent = '📅 ' + new Date().toLocaleDateString('en-IN', { weekday:'long', day:'numeric', month:'long' });
+    }
+
+    // Logout
+    document.getElementById('logout-btn').addEventListener('click', async (e) => {
+      e.preventDefault();
+      await authLogout();
+      localStorage.removeItem('prodify-username');
+      window.location.href = '../index.html';
+    });
+  });
+</script>
+</body>
+</html>

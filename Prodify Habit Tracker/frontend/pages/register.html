@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register — Prodify</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <div class="auth-page">
+      <div class="auth-bg"></div>
+
+      <!-- Theme toggle -->
+      <div class="auth-theme">
+        <span class="auth-theme-label theme-icon-sun">☀️</span>
+        <div class="theme-toggle" title="Toggle theme"></div>
+      </div>
+
+      <div class="auth-card">
+        <!-- Logo -->
+        <div class="auth-logo">
+          <div class="logo-mark">⚡</div>
+          Prodify
+        </div>
+
+        <h1 class="auth-heading">Create your account</h1>
+        <p class="auth-sub">Start managing tasks and building habits today</p>
+
+        <!-- Alert -->
+        <div class="alert alert-error hidden" id="reg-error">
+          <span>⚠️</span>
+          <span id="reg-error-msg">Something went wrong.</span>
+        </div>
+        <div class="alert alert-success hidden" id="reg-success">
+          <span>✅</span>
+          Account created! Redirecting to login…
+        </div>
+
+        <!-- Form -->
+        <form class="auth-form" id="register-form" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="username">Username</label>
+            <input
+              class="form-input"
+              type="text"
+              id="username"
+              name="username"
+              placeholder="yourname"
+              required
+              autocomplete="username"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input
+              class="form-input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@example.com"
+              required
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <input
+              class="form-input"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Create a strong password"
+              required
+              autocomplete="new-password"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="confirm-password"
+              >Confirm Password</label
+            >
+            <input
+              class="form-input"
+              type="password"
+              id="confirm-password"
+              name="confirm_password"
+              placeholder="Repeat your password"
+              required
+              autocomplete="new-password"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full" id="reg-btn">
+            Create Account
+          </button>
+        </form>
+
+        <div class="auth-footer">
+          Already have an account?
+          <a href="login.html">Login here</a>
+        </div>
+
+        <div style="text-align: center; margin-top: 14px">
+          <a
+            href="../index.html"
+            style="font-size: 13px; color: var(--text-muted)"
+            >← Back to Home</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="toast-container"></div>
+
+    <script src="../js/theme.js"></script>
+    <script src="../js/api.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("register-form");
+        const errorBox = document.getElementById("reg-error");
+        const errorMsg = document.getElementById("reg-error-msg");
+        const successBox = document.getElementById("reg-success");
+        const btn = document.getElementById("reg-btn");
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          errorBox.classList.add("hidden");
+          successBox.classList.add("hidden");
+
+          const username = form.username.value.trim();
+          const email = form.email.value.trim();
+          const password = form.password.value;
+          const confirm = form.confirm_password.value;
+
+          if (!username || !email || !password || !confirm) {
+            errorMsg.textContent = "Please fill in all fields.";
+            errorBox.classList.remove("hidden");
+            return;
+          }
+          if (password !== confirm) {
+            errorMsg.textContent = "Passwords do not match.";
+            errorBox.classList.remove("hidden");
+            return;
+          }
+          if (password.length < 6) {
+            errorMsg.textContent = "Password must be at least 6 characters.";
+            errorBox.classList.remove("hidden");
+            return;
+          }
+
+          btn.disabled = true;
+          btn.textContent = "Creating account...";
+
+          const { ok, data } = await authRegister(username, email, password);
+
+          if (ok && data.status === "success") {
+            successBox.classList.remove("hidden");
+            btn.textContent = "✓ Account Created!";
+            setTimeout(() => {
+              window.location.href = "login.html";
+            }, 1500);
+          } else {
+            btn.disabled = false;
+            btn.textContent = "Create Account";
+            errorMsg.textContent = data.message || "Registration failed.";
+            errorBox.classList.remove("hidden");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

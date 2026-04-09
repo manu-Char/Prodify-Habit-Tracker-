@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tasks — Prodify</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <div class="app-wrapper">
+      <!-- ══════════════════════════════════════
+       SIDEBAR
+  ══════════════════════════════════════ -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo-wrap">
+          <div class="sidebar-logo">
+            <div class="logo-mark">⚡</div>
+            Prodify
+          </div>
+        </div>
+        <nav class="sidebar-nav">
+          <div class="sidebar-section-label">Menu</div>
+          <a href="dashboard.html" class="sidebar-link">
+            <span class="s-icon">🏠</span> Dashboard
+          </a>
+          <a href="tasks.html" class="sidebar-link active">
+            <span class="s-icon">✅</span> Tasks
+          </a>
+          <a href="habits.html" class="sidebar-link">
+            <span class="s-icon">🌿</span> Habits
+          </a>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="sidebar-theme-row">
+            <span class="sidebar-theme-label">
+              <span class="theme-icon-sun">☀️</span> Theme
+            </span>
+            <div class="theme-toggle" title="Toggle theme"></div>
+          </div>
+          <div class="sidebar-divider"></div>
+          <a href="#" class="sidebar-link" id="logout-btn">
+            <span class="s-icon">🚪</span> Logout
+          </a>
+        </div>
+      </aside>
+
+      <!-- ══════════════════════════════════════
+       MAIN CONTENT
+  ══════════════════════════════════════ -->
+      <main class="app-main">
+        <!-- Top bar -->
+        <div class="app-topbar">
+          <div class="topbar-left">
+            <span class="topbar-greeting">Manage</span>
+            <span class="topbar-title">My Tasks</span>
+          </div>
+          <div class="topbar-right">
+            <div class="theme-toggle" title="Toggle theme"></div>
+            <div class="topbar-avatar" id="user-avatar" title="Profile">U</div>
+          </div>
+        </div>
+
+        <!-- Page body -->
+        <div class="page-body">
+          <div class="page-header">
+            <h1>Task Manager</h1>
+            <p>Create tasks, mark them complete, and stay focused.</p>
+          </div>
+
+          <!-- Add task form -->
+          <div class="form-panel">
+            <div class="form-panel-header">
+              <span class="form-panel-title">➕ Add New Task</span>
+            </div>
+            <div class="form-panel-body">
+              <form id="task-form" novalidate>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label" for="task-title"
+                      >Task Title
+                      <span style="color: var(--danger)">*</span></label
+                    >
+                    <input
+                      class="form-input"
+                      type="text"
+                      id="task-title"
+                      placeholder="e.g. Complete assignment"
+                      required
+                      maxlength="200"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="task-desc"
+                      >Description (optional)</label
+                    >
+                    <input
+                      class="form-input"
+                      type="text"
+                      id="task-desc"
+                      placeholder="Add more details…"
+                      maxlength="500"
+                    />
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <button type="reset" class="btn btn-ghost btn-sm">
+                    Clear
+                  </button>
+                  <button type="submit" class="btn btn-primary">
+                    + Add Task
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Task list header + filter buttons -->
+          <div
+            style="
+              margin-bottom: 16px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              flex-wrap: wrap;
+              gap: 10px;
+            "
+          >
+            <h2
+              style="
+                font-size: 16px;
+                font-weight: 600;
+                font-family: var(--font-display);
+              "
+            >
+              All Tasks
+            </h2>
+            <div style="display: flex; gap: 8px" id="filter-btns">
+              <!-- BUG FIX: filter buttons now call filterTasks() from tasks.js
+               instead of the old inline DOM manipulation code.
+               This also correctly re-renders cards with proper event listeners. -->
+              <button
+                class="btn btn-sm btn-primary"
+                data-filter="all"
+                onclick="applyFilter(this, 'all')"
+              >
+                All
+              </button>
+              <button
+                class="btn btn-sm btn-outline"
+                data-filter="pending"
+                onclick="applyFilter(this, 'pending')"
+              >
+                Pending
+              </button>
+              <button
+                class="btn btn-sm btn-outline"
+                data-filter="completed"
+                onclick="applyFilter(this, 'completed')"
+              >
+                Completed
+              </button>
+            </div>
+          </div>
+
+          <!-- Loading spinner -->
+          <div
+            id="tasks-loading"
+            style="text-align: center; padding: 48px; color: var(--text-muted)"
+          >
+            <div style="font-size: 36px; margin-bottom: 10px">⏳</div>
+            <p>Loading your tasks…</p>
+          </div>
+
+          <!-- Task list container (populated by tasks.js) -->
+          <div class="task-list hidden" id="task-list"></div>
+        </div>
+        <!-- /page-body -->
+      </main>
+    </div>
+    <!-- /app-wrapper -->
+
+    <div class="toast-container"></div>
+
+    <script src="../js/theme.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/tasks.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Show user avatar initial from stored username
+        const storedName = localStorage.getItem("prodify-username");
+        if (storedName) {
+          document.getElementById("user-avatar").textContent =
+            storedName[0].toUpperCase();
+        }
+
+        // Logout button
+        document
+          .getElementById("logout-btn")
+          .addEventListener("click", async (e) => {
+            e.preventDefault();
+            await authLogout();
+            localStorage.removeItem("prodify-username");
+            window.location.href = "../index.html";
+          });
+      });
+
+      /**
+       * Handles filter button clicks.
+       * Updates button styles and calls filterTasks() from tasks.js.
+       * @param {HTMLElement} clickedBtn - The button that was clicked
+       * @param {string} filter          - 'all', 'pending', or 'completed'
+       */
+      function applyFilter(clickedBtn, filter) {
+        // Update button active styles
+        document.querySelectorAll("[data-filter]").forEach((btn) => {
+          btn.classList.remove("btn-primary");
+          btn.classList.add("btn-outline");
+        });
+        clickedBtn.classList.remove("btn-outline");
+        clickedBtn.classList.add("btn-primary");
+
+        // Filter the task list (function lives in tasks.js)
+        filterTasks(filter);
+      }
+    </script>
+  </body>
+</html>

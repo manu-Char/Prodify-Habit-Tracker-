@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login — Prodify</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <div class="auth-page">
+      <div class="auth-bg"></div>
+
+      <!-- Theme toggle -->
+      <div class="auth-theme">
+        <span class="auth-theme-label theme-icon-sun">☀️</span>
+        <div class="theme-toggle" title="Toggle theme"></div>
+      </div>
+
+      <div class="auth-card">
+        <!-- Logo -->
+        <div class="auth-logo">
+          <div class="logo-mark">⚡</div>
+          Prodify
+        </div>
+
+        <h1 class="auth-heading">Welcome back</h1>
+        <p class="auth-sub">Login to your Prodify account to continue</p>
+
+        <!-- Error alert (hidden by default) -->
+        <div class="alert alert-error hidden" id="login-error">
+          <span>⚠️</span>
+          <span id="login-error-msg">Invalid email or password.</span>
+        </div>
+
+        <!-- Login form -->
+        <form class="auth-form" id="login-form" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input
+              class="form-input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@example.com"
+              required
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <input
+              class="form-input"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+              autocomplete="current-password"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full" id="login-btn">
+            Login to Prodify
+          </button>
+        </form>
+
+        <div class="auth-footer">
+          Don't have an account?
+          <a href="register.html">Create one — it's free</a>
+        </div>
+
+        <div style="text-align: center; margin-top: 14px">
+          <a
+            href="../index.html"
+            style="font-size: 13px; color: var(--text-muted)"
+            >← Back to Home</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="toast-container"></div>
+
+    <script src="../js/theme.js"></script>
+    <script src="../js/api.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("login-form");
+        const errorBox = document.getElementById("login-error");
+        const errorMsg = document.getElementById("login-error-msg");
+        const btn = document.getElementById("login-btn");
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          errorBox.classList.add("hidden");
+
+          const email = form.email.value.trim();
+          const password = form.password.value;
+
+          if (!email || !password) {
+            errorMsg.textContent = "Please fill in all fields.";
+            errorBox.classList.remove("hidden");
+            return;
+          }
+
+          btn.disabled = true;
+          btn.textContent = "Logging in...";
+
+          // authLogin() in api.js saves the username to localStorage automatically on success
+          const { ok, data } = await authLogin(email, password);
+
+          if (ok && data.status === "success") {
+            btn.textContent = "✓ Success! Redirecting...";
+            setTimeout(() => {
+              window.location.href = "dashboard.html";
+            }, 600);
+          } else {
+            btn.disabled = false;
+            btn.textContent = "Login to Prodify";
+            errorMsg.textContent = data.message || "Invalid email or password.";
+            errorBox.classList.remove("hidden");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
