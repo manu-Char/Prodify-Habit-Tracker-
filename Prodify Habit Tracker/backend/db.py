@@ -3,12 +3,11 @@ from mysql.connector import Error
 
 # ── Database configuration ────────────────────────────────────
 DB_CONFIG = {
-    "host": "localhost",
-    "user": "root",
-    "password": "",
-    "database": "prodify_db",
-    "port": 3306,
-    "autocommit": True
+    "host": "manu-char.mysql.pythonanywhere-services.com",
+    "user": "manu-char",
+    "password": "YOUR_PASSWORD",
+    "database": "manu-char$prodify_db",
+    "port": 3306
 }
 
 
